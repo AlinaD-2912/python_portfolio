@@ -1,4 +1,4 @@
-# Étape 2 : Collections - Structurer votre portfolio avec namedtuple
+# Étape 2 : Collections - Structurer votre portfolio avec les collections
 
 ## 📊 Developer Story
 Maintenant que vous pouvez charger votre portfolio depuis des fichiers, vous vous rendez compte que manipuler des dictionnaires partout (`data['symbol']`, `data['quantity']`) devient fastidieux et source d'erreurs. Vous voulez une structure de données plus propre et plus sûre pour représenter vos positions d'actions.
@@ -19,7 +19,7 @@ Créez `portfolio_structures.py` qui améliore votre étape 1 :
 
 ### Éléments requis :
 1. **Position** - prend un symbole, une quantité, un prix d'achat et une date d'achat
-2. **Transaction** - prend une date, un symbole, une quantité, un prix et un type
+2. **Transaction** - prend une date, un symbole, une quantité, un prix et un type (achat ou vente)
 3. **Classe Portfolio** - A vous de voir sa structure.
 3. **`Position = namedtuple(...)`** - structure pour chaque action du portfolio
 4. **`convertir_vers_positions(portfolio_dict)`** - convertit les dictionnaires en namedtuples
