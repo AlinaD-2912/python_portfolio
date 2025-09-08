@@ -1,0 +1,46 @@
+<portfolio>
+    <positions>
+        <position>
+            <symbol>"AAPL"</symbol>
+            <quantity>10</quantity>
+            <purchase_price>150.00</purchase_price>
+            <purchase_date>"2023-01-15"</purchase_date>
+        </position>
+        <position>
+            <symbol>"GOOGL"</symbol>
+            <quantity>5</quantity>
+            <purchase_price>2500.00</purchase_price>
+            <purchase_date>"2023-02-01"</purchase_date>
+        </position>
+        <position>
+            <symbol>"MSFT"</symbol>
+            <quantity>20</quantity>
+            <purchase_price>300.00</purchase_price>
+            <purchase_date>"2023-01-20"</purchase_date>
+        </position>
+        <position>
+            <symbol>"TSLA"</symbol>
+            <quantity>8</quantity>
+            <purchase_price>800.00</purchase_price>
+            <purchase_date>"2023-02-10"</purchase_date>
+        </position>
+        <position>
+            <symbol>"NVDA"</symbol>
+            <quantity>15</quantity>
+            <purchase_price>400.00</purchase_price>
+            <purchase_date>"2023-01-25"</purchase_date>
+        </position>
+        <position>
+            <symbol>"AMZN"</symbol>
+            <quantity>12</quantity>
+            <purchase_price>100.00</purchase_price>
+            <purchase_date>"2023-02-05"</purchase_date>
+        </position>
+        <position>
+            <symbol>"META"</symbol>
+            <quantity>25</quantity>
+            <purchase_price>200.00</purchase_price>
+            <purchase_date>"2023-01-30"</purchase_date>
+        </position>
+</positions>
+</portfolio>

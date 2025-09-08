@@ -12,6 +12,8 @@ Python excelle dans la manipulation de fichiers de données. Les modules `csv` e
 
 ## 🎯 Objectif
 **Créez une base de données portfolio concrète qui servira pour TOUS les exercices suivants.**
+CREATE USER 'alina'@'localhost' IDENTIFIED BY 'password';
+
 
 ## 📝 Exercice
 Créez `portfolio_loader.py` avec les fonctions essentielles :
