@@ -39,7 +39,7 @@ def lire_portfolio_csv(nom_fichier):
             }
             portfolio.append(position)
     return portfolio
-print("====== Lire portfolio csv ========")
+print("\n====== Lire portfolio csv ========")
 data = lire_portfolio_csv("portfolio_sample.csv")
 print(data)
 
@@ -48,9 +48,20 @@ print(data)
 def lire_portfolio_json(nom_fichier):
     with open(nom_fichier, encoding='utf-8') as json_file:
         json_data = json.load(json_file)
-    return json_data.get('portfolio', json_data)  # return 'portfolio' if exists, else full data
 
-print("======== Lire portfolio json ===========")
+        positions = json_data.get("positions", [])  # list of dicts
+        cleaned_positions = []
+        for pos in positions:
+            cleaned_positions.append({
+                "symbol": pos.get("symbol"),
+                "quantity": int(pos.get("quantity", 0)),
+                "purchase_price": float(pos.get("purchase_price", 0.0)),
+                "purchase_date": pos.get("purchase_date")
+            })
+
+    return cleaned_positions
+
+print("\n======== Lire portfolio json ===========")
 
 # csv_data = lire_portfolio_csv("portfolio_sample.csv")
 json_data = lire_portfolio_json("portfolio_sample.json")
@@ -58,7 +69,7 @@ json_data = lire_portfolio_json("portfolio_sample.json")
 # print(csv_data)
 print(json_data)
 
-print("========= Lire portfolio xml ===========")
+print("\n========= Lire portfolio xml ===========")
 
 def lire_portfolio_xml(nom_fichier):
     tree = ET.parse(nom_fichier)
@@ -81,21 +92,21 @@ print(xml_data)
 def afficher_portfolio(portfolio):
     if portfolio.endswith(".csv"):
         csv_data = lire_portfolio_csv(portfolio)
-        print("csv Portfolio:")
+        print("\ncsv Portfolio:")
         print(csv_data)
     elif portfolio.endswith(".json"):
         json_data = lire_portfolio_json(portfolio)
-        print("json Portfolio:")
+        print("\njson Portfolio:")
         print(json_data)
     elif portfolio.endswith(".xml"):
         tree = ET.parse(portfolio)
         root = tree.getroot()
-        print("XML Portfolio:")
+        print("\nXML Portfolio:")
         for pos in root.findall(".//position"):
             entry = {child.tag: child.text for child in pos}
             print(entry)
     else:
-        print("Unknown format")
+        print("\nUnknown format")
 
 afficher_portfolio("portfolio_sample.csv")
 afficher_portfolio("portfolio_sample.json")
@@ -115,8 +126,7 @@ def recherche_par_symbole(filename, symbole):
 
     elif filename.endswith(".json"):
         # read JSON as Python dictimport xml.etree.ElementTree as ET
-        json_data = lire_portfolio_json(filename)
-        positions = json_data.get("positions", [])
+        positions = lire_portfolio_json(filename)
         for pos in positions:
             if pos.get("symbol") == symbole:
                 results.append(pos)

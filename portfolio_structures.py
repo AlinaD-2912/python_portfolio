@@ -4,19 +4,7 @@ import json
 from collections import namedtuple
 from typing import NamedTuple, Optional
 
-def lire_portfolio_csv(nom_fichier):
-    portfolio = []
-    with open(nom_fichier, newline='', encoding='utf-8') as csvfile:
-        lecteur_csv = csv.DictReader(csvfile, delimiter=',')  # adjust delimiter if needed
-        for line in lecteur_csv:
-            position = {
-                'symbol': line.get('symbol'),
-                'quantity': int(line.get('quantity', 0)),
-                'purchase_price': float(line.get('purchase_price', 0.0)),
-                'purchase_date': line.get('purchase_date')
-            }
-            portfolio.append(position)
-    return portfolio
+from portfolio_loader import lire_portfolio_json, lire_portfolio_csv
 
 # namedtuple : can access elements by index, lightweight objects with named fields
 Position = namedtuple("Position", ["symbol", "quantity", "purchase_price", "purchase_date"])
@@ -32,11 +20,14 @@ class Portfolio(NamedTuple):
 
 
 def convertir_vers_positions(portfolio_dict) :
-    # **d is dictionary unpacking → it passes each key/value in the dict as keyword arguments
+    # **d is dictionary unpacking  it passes each key/value in the dict as keyword arguments
     return [Position(**d) for d in portfolio_dict]
 
 portfolio_dicts = lire_portfolio_csv("portfolio_sample.csv")
-positions = convertir_vers_positions(portfolio_dicts)
+portfolio_dicts2 = lire_portfolio_json("portfolio_sample.json")
+
+positions_csv = convertir_vers_positions(portfolio_dicts)
+positions_json = convertir_vers_positions(portfolio_dicts2)
 
 
 def afficher_positions(positions) :
@@ -50,5 +41,16 @@ positions = [
     Position("MSFT", 20, 300.0, "2023-01-20")
 
 ]
-afficher_positions(positions)
+positions2 = [
+    Position("AAPL", 10, 150.0, "2023-01-15"),
+    Position("GOOGL", 5, 2500.0, "2023-02-01"),
+    Position("MSFT", 20, 300.0, "2023-01-20")
 
+]
+
+
+print("\n==========  CSV Portfolio: ===========")
+afficher_positions(positions_csv)
+
+print("\n========== JSON Portfolio: ============")
+afficher_positions(positions_json)
