@@ -39,6 +39,9 @@ def lire_portfolio_csv(nom_fichier):
             }
             portfolio.append(position)
     return portfolio
+print("====== Lire portfolio csv ========")
+data = lire_portfolio_csv("portfolio_sample.csv")
+print(data)
 
 
 #portfolio_sample.json
@@ -47,12 +50,15 @@ def lire_portfolio_json(nom_fichier):
         json_data = json.load(json_file)
     return json_data.get('portfolio', json_data)  # return 'portfolio' if exists, else full data
 
+print("======== Lire portfolio json ===========")
+
 # csv_data = lire_portfolio_csv("portfolio_sample.csv")
-# json_data = lire_portfolio_json("portfolio_sample.json")
+json_data = lire_portfolio_json("portfolio_sample.json")
 #
 # print(csv_data)
-# print(json_data)
+print(json_data)
 
+print("========= Lire portfolio xml ===========")
 
 def lire_portfolio_xml(nom_fichier):
     tree = ET.parse(nom_fichier)
@@ -65,8 +71,8 @@ def lire_portfolio_xml(nom_fichier):
 
     return portfolio
 
-# xml_data = lire_portfolio_xml("portfolio_sample.xml")
-# print(xml_data)
+xml_data = lire_portfolio_xml("portfolio_sample.xml")
+print(xml_data)
 
 
 
@@ -75,9 +81,11 @@ def lire_portfolio_xml(nom_fichier):
 def afficher_portfolio(portfolio):
     if portfolio.endswith(".csv"):
         csv_data = lire_portfolio_csv(portfolio)
+        print("csv Portfolio:")
         print(csv_data)
     elif portfolio.endswith(".json"):
         json_data = lire_portfolio_json(portfolio)
+        print("json Portfolio:")
         print(json_data)
     elif portfolio.endswith(".xml"):
         tree = ET.parse(portfolio)
