@@ -17,12 +17,27 @@ def create_connection(db_file):
 create_connection("portfolio.db")
 
 #portfolio_sample.csv
+
+# def lire_portfolio_csv(nom_fichier):
+#     portfolio = []
+#     with open(nom_fichier, newline='', encoding='utf-8') as csvfile:
+#         reader = csv.reader(csvfile, delimiter=',')  # or delimiter=';' depending on your file
+#         for row in reader:
+#             portfolio.append(row)
+#     return portfolio
+
 def lire_portfolio_csv(nom_fichier):
     portfolio = []
     with open(nom_fichier, newline='', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')  # or delimiter=';' depending on your file
-        for row in reader:
-            portfolio.append(row)
+        lecteur_csv = csv.DictReader(csvfile, delimiter=',')  # adjust delimiter if needed
+        for line in lecteur_csv:
+            position = {
+                'symbol': line.get('symbol'),
+                'quantity': int(line.get('quantity', 0)),
+                'purchase_price': float(line.get('purchase_price', 0.0)),
+                'purchase_date': line.get('purchase_date')
+            }
+            portfolio.append(position)
     return portfolio
 
 
@@ -115,15 +130,20 @@ print(matches)
 print(recherche_par_symbole("portfolio_sample.json", "AAPL"))
 print(recherche_par_symbole("portfolio_sample.xml", "MSFT"))
 
-def recherche_par_symbole_db(conn, symbole):
-    sql = "SELECT * FROM portfolio WHERE symbol = ?"
+
+def recherche_par_symbole_db(db_file, symbole):
+    conn = sqlite3.connect(db_file)
     cur = conn.cursor()
+    sql = "SELECT * FROM sample WHERE symbol = ?"
     cur.execute(sql, (symbole,))
     rows = cur.fetchall()
+    conn.close()
     return rows
 
+# Now this works:
+rows = recherche_par_symbole_db("portfolio.db", "AAPL")
+print(rows)
 
-recherche_par_symbole_db("portfolio.db", "AAPL")
 
 
 
