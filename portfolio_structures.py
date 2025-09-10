@@ -11,7 +11,7 @@ Position = namedtuple("Position", ["symbol", "quantity", "purchase_price", "purc
 Transaction = namedtuple("Transaction", ["date", "symbol", "quantity", "price", "type"])
 
 
-class Portfolio(NamedTuple):
+class Portfolio:
     symbol: str
     quantity: int
     price: decimal.Decimal

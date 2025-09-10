@@ -39,6 +39,7 @@ def lire_portfolio_csv(nom_fichier):
             }
             portfolio.append(position)
     return portfolio
+
 print("\n====== Lire portfolio csv ========")
 data = lire_portfolio_csv("portfolio_sample.csv")
 print(data)
