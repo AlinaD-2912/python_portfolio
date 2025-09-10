@@ -11,21 +11,20 @@ prix_actuels_data = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
 portfolio_positions = convertir_vers_positions(portfolio_data)
 prix_actuels_positions = convertir_vers_positions(prix_actuels_data)
 
+mon_portfolio = Portfolio("My Investment Portfolio")
+for pos in portfolio_positions:
+    mon_portfolio.add_position(pos)
+
+
+
 def calculer_valeurs_positions(positions):
     return list(map(lambda_valeur_position, positions))
 
+valeurs_position = calculer_valeurs_positions(mon_portfolio.get_positions())
+print("Valeurs d'achat :", valeurs_position)
 
-def calculer_gains_portfolio(positions_achat, positions_actuelles):
-    """Calculate absolute gains for each position"""
-    gains = []
-    for pos_achat in positions_achat:
-        pos_actuelle = recherche_par_symbole(positions_actuelles, pos_achat.symbol)
-        if pos_actuelle:
-            gain = lambda_gain_absolu(pos_achat, pos_actuelle)
-            gains.append(gain)
-        else:
-            gains.append(0)  # No current price data available
-    return gains
+def calculer_gains_portfolio(positions, prix_actuels_dict):
+    return list(map(lambda_gain_absolu, positions))
 
 
 

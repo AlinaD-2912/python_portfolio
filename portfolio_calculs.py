@@ -29,13 +29,3 @@ print(f"Percentage return for {positionPrixAchat.symbol}: {lambda_rendement_pour
 
 
 
-lambda_gain_absolu_portfolio = lambda pos_achat: (
-    lambda_gain_absolu(pos_achat, recherche_par_symbole(actual_prices_positions, pos_achat.symbol))
-    if recherche_par_symbole(actual_prices_positions, pos_achat.symbol) else 0
-)
-
-lambda_rendement_pourcent_portfolio = lambda pos_achat: (
-    lambda_rendement_pourcent(pos_achat, recherche_par_symbole(actual_prices_positions, pos_achat.symbol))
-    if recherche_par_symbole(actual_prices_positions, pos_achat.symbol) else 0
-)
-
