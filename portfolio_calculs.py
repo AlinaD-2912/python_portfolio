@@ -23,7 +23,7 @@ lambda_gain_absolu = lambda pos_achat, pos_actuel: (pos_actuel.purchase_price - 
 
 print(f"Absolute gain for {positionPrixAchat.symbol}: {lambda_gain_absolu(positionPrixAchat, positionPrixVente)}")
 
-lambda_rendement_pourcent = lambda pos_achat, pos_actuel: ((pos_actuel.purchase_price - pos_achat.purchase_price) / pos_achat.purchase_price) * 100
+lambda_rendement_pourcent = lambda pos_achat, pos_actuel: round (((pos_actuel.purchase_price - pos_achat.purchase_price) / pos_achat.purchase_price) * 100, 1)
 
 print(f"Percentage return for {positionPrixAchat.symbol}: {lambda_rendement_pourcent(positionPrixAchat, positionPrixVente):.2f}%")
 
