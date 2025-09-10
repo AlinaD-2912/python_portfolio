@@ -5,6 +5,8 @@ import xml.etree.ElementTree as ET
 import sqlite3
 import sqlite3
 
+print("\n\n ======================================  Step 1 ==========================================")
+
 def create_connection(db_file):
     conn = None
     try:
@@ -16,15 +18,7 @@ def create_connection(db_file):
 
 create_connection("portfolio.db")
 
-#portfolio_sample.csv
 
-# def lire_portfolio_csv(nom_fichier):
-#     portfolio = []
-#     with open(nom_fichier, newline='', encoding='utf-8') as csvfile:
-#         reader = csv.reader(csvfile, delimiter=',')  # or delimiter=';' depending on your file
-#         for row in reader:
-#             portfolio.append(row)
-#     return portfolio
 
 def lire_portfolio_csv(nom_fichier):
     portfolio = []
@@ -40,7 +34,7 @@ def lire_portfolio_csv(nom_fichier):
             portfolio.append(position)
     return portfolio
 
-print("\n====== Lire portfolio csv ========")
+print("\nLire portfolio csv ")
 data = lire_portfolio_csv("portfolio_sample.csv")
 print(data)
 
@@ -62,7 +56,7 @@ def lire_portfolio_json(nom_fichier):
 
     return cleaned_positions
 
-print("\n======== Lire portfolio json ===========")
+print("\n Lire portfolio json ")
 
 # csv_data = lire_portfolio_csv("portfolio_sample.csv")
 json_data = lire_portfolio_json("portfolio_sample.json")
@@ -70,7 +64,7 @@ json_data = lire_portfolio_json("portfolio_sample.json")
 # print(csv_data)
 print(json_data)
 
-print("\n========= Lire portfolio xml ===========")
+print("\n Lire portfolio xml")
 
 def lire_portfolio_xml(nom_fichier):
     tree = ET.parse(nom_fichier)

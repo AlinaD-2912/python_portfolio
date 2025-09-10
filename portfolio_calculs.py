@@ -1,54 +1,41 @@
 from portfolio_loader import lire_portfolio_csv
+from portfolio_structures import *;
+from portfolio_loader import *;
 
-portfolio = lire_portfolio_csv("portfolio_sample.csv")
-actual_prices = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
+portfolio_data = lire_portfolio_csv("portfolio_sample.csv")
+actual_prices_data = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
 
-def valeur_position(position) :
-    return (lambda pos: pos["quantity"] * pos["purchase_price"])(position)
+portfolio_positions = convertir_vers_positions(portfolio_data)
+actual_prices_positions = convertir_vers_positions(actual_prices_data)
 
-position = {
-    "symbol": "AAPL",
-    "quantity": 10,
-    "purchase_price": 150.0,
-    "purchase_date": "2023-01-15"
-}
-
-result = valeur_position(position)
-print("\nValue of the position :" , result)
-
-def gain_absolu (actual_prices) :
-    price_search = {p["symbol"]: p["purchase_price"] for p in actual_prices}
-
-    return lambda pos: (price_search[pos["symbol"]] - pos["purchase_price"]) * pos["quantity"]
+print("\n\n ======================================  Step 3 ==========================================")
 
 
-calcul_gain_absolu = gain_absolu(actual_prices)
-print("\nGain of the position :" )
-for pos in portfolio:
-    g = calcul_gain_absolu(pos)
-    if g >0:
-        print(f"{pos["symbol"]} : + {g} €")
-    else :
-        print(f"{pos["symbol"]} : = {g} €")
+lambda_valeur_position = lambda pos: pos.quantity * pos.purchase_price
+
+positionExemple = Position("AAPL", 10, 150, "2023-01-15")
+print(f"\nValue of the position {positionExemple.symbol}: {lambda_valeur_position(positionExemple)}")
+
+positionPrixAchat = Position("AAPL", 10, 150, "2023-01-15")
+positionPrixVente = Position("AAPL", 10, 175, "2023-01-15")
+
+lambda_gain_absolu = lambda pos_achat, pos_actuel: (pos_actuel.purchase_price - pos_achat.purchase_price) * pos_achat.quantity
+
+print(f"Absolute gain for {positionPrixAchat.symbol}: {lambda_gain_absolu(positionPrixAchat, positionPrixVente)}")
+
+lambda_rendement_pourcent = lambda pos_achat, pos_actuel: ((pos_actuel.purchase_price - pos_achat.purchase_price) / pos_achat.purchase_price) * 100
+
+print(f"Percentage return for {positionPrixAchat.symbol}: {lambda_rendement_pourcent(positionPrixAchat, positionPrixVente):.2f}%")
 
 
-def rendement_pourcent(actual_prices) :
-    price_search = {p["symbol"]: p["purchase_price"] for p in actual_prices}
-    return lambda pos: ( (price_search[pos["symbol"]] - pos["purchase_price"]) / pos["purchase_price"] ) * 100 if pos["purchase_price"] > 0 else 0
 
-calcul_gain_pourcent = rendement_pourcent(actual_prices)
-print("\nGain of the position in %:" )
-for pos in portfolio:
-    g = calcul_gain_pourcent(pos)
-    if g > 0 :
-        print(f"{pos["symbol"]} : + {g} %")
-    else :
-        print(f"{pos["symbol"]} : {g} %")
+lambda_gain_absolu_portfolio = lambda pos_achat: (
+    lambda_gain_absolu(pos_achat, recherche_par_symbole(actual_prices_positions, pos_achat.symbol))
+    if recherche_par_symbole(actual_prices_positions, pos_achat.symbol) else 0
+)
 
-def poids_portfolio(position, actual_prices) :
-    price_search = {p["symbol"]: p["purchase_price"] for p in actual_prices}
-    return (lambda pos: ((price_search[pos["symbol"]] - pos["purchase_price"]) / pos["purchase_price"]) * 100)(position)
-
-result2 = poids_portfolio(position, actual_prices)
-print("\nValue of the position in % :" , result2)
+lambda_rendement_pourcent_portfolio = lambda pos_achat: (
+    lambda_rendement_pourcent(pos_achat, recherche_par_symbole(actual_prices_positions, pos_achat.symbol))
+    if recherche_par_symbole(actual_prices_positions, pos_achat.symbol) else 0
+)
 
