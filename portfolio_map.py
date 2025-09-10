@@ -15,19 +15,24 @@ mon_portfolio = Portfolio("My Investment Portfolio")
 for pos in portfolio_positions:
     mon_portfolio.add_position(pos)
 
+afficher_positions(mon_portfolio.positions)
 
 
 def calculer_valeurs_positions(positions):
     return list(map(lambda_valeur_position, positions))
 
 valeurs_position = calculer_valeurs_positions(mon_portfolio.get_positions())
-print("Valeurs d'achat :", valeurs_position)
+print("\nValeurs d'achat :", valeurs_position)
 
 def calculer_gains_portfolio(positions, prix_actuels_dict):
-    return list(map(lambda_gain_absolu, positions))
+    return list(map(lambda_gain_absolu, positions, prix_actuels_dict))
 
+gain_portfolio = calculer_gains_portfolio(mon_portfolio.get_positions(), prix_actuels_positions)
+print("Gains actuels :", gain_portfolio)
 
 
 def calculer_rendements_portfolio(positions, prix_actuels_dict):
      return list(map(lambda_rendement_pourcent, positions, prix_actuels_dict))
 
+rendements_portfolio = calculer_rendements_portfolio(mon_portfolio.get_positions(), prix_actuels_positions)
+print("Rendements :", rendements_portfolio)

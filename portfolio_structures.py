@@ -19,18 +19,14 @@ class Portfolio:
         self.positions: List[Position] = []
 
     def add_position(self, position: Position):
-        """Add a position to the portfolio"""
         self.positions.append(position)
 
     def get_positions(self) -> List[Position]:
-        """Return all positions in the portfolio"""
         return self.positions
 
 
 def convertir_vers_positions(portfolio_data: Any) -> List[Position]:
-    """Convert various data formats to a list of Position objects"""
     positions = []
-
     # If it's a dict with 'positions' key, extract the positions data
     if isinstance(portfolio_data, dict) and 'positions' in portfolio_data:
         data_positions = portfolio_data['positions']
@@ -52,7 +48,6 @@ def convertir_vers_positions(portfolio_data: Any) -> List[Position]:
 
 
 def afficher_positions(positions: List[Position]):
-    """Display all positions in a formatted way"""
     for pos in positions:
         # f - formatted string
         print(f"{pos.symbol} - {pos.quantity} at {pos.purchase_price} on {pos.purchase_date}")
