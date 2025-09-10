@@ -10,26 +10,33 @@ positions_problematiques = [
     Position('GOOGL', -10, 2500.0, '2023-03-01')  # Quantité négative !
 ]
 
-def ErreurDonneesPortfolio (portfolio: Portfolio, position: Position):
+class ErreurDonneesPortfolio(Exception):
+    pass
+
+def test_portfolio (portfolio: Portfolio, position: Position):
     try:
         if position.purchase_price <= 0 :
-            raise ErreurDonneesPortfolio("Prix d'achat invalide pour {position.symbol} : {position.purchase_price}")
+            raise ErreurDonneesPortfolio(f"Prix d'achat invalide pour {position.symbol} : {position.purchase_price}")
         if position.quantity <=0 :
-            raise  ErreurDonneesPortfolio("Quantité invalide pour {position.symbol} : {position.quantity}")
-        if not position.symbol.isAlpha():
-            raise ErreurDonneesPortfolio("Symbol invalide : {position.symbol} ")
+            raise  ErreurDonneesPortfolio(f"Quantité invalide pour {position.symbol} : {position.quantity}")
+        if not position.symbol.isalpha():
+            raise ErreurDonneesPortfolio(f"Symbol invalide : {position.symbol} ")
         portfolio.add_position(position)
     except ErreurDonneesPortfolio as e:
-        print("Erreur détecté: {e}")
+        print(f"Erreur détecté: {e}")
     except Exception as e:
         print(f"Erreur imprévue est survenue: {e}")
 
 portfolio = Portfolio("Test")
 
 for pos in positions_problematiques:
-    portfolio.add_position(pos)
+    test_portfolio(portfolio, pos)
 
 print(portfolio.get_positions())
 
+
+print("\nPositions valides dans le portfolio:")
+print(portfolio.get_positions())
+# def charger_portfolio_securise(fichier):
 
 
