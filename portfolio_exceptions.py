@@ -2,6 +2,8 @@ from portfolio_structures import *;
 from typing import List
 from collections import namedtuple
 
+print("\n\n ======================================  Step 5 ==========================================")
+
 positions_problematiques = [
     Position('AAPL', 10, 0.0, '2023-01-15'),      # Prix d'achat = 0 !
     Position('INVALID', 5, 100.0, '2023-02-01'),  # Symbole inexistant
@@ -23,6 +25,11 @@ def ErreurDonneesPortfolio (portfolio: Portfolio, position: Position):
         print(f"Erreur imprévue est survenue: {e}")
 
 portfolio = Portfolio("Test")
+
 for pos in positions_problematiques:
     portfolio.add_position(pos)
+
+print(portfolio.get_positions())
+
+
 
