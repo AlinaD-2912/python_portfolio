@@ -122,9 +122,10 @@ def calculer_rendement_pourcent(positions, prix_actuels):
             raise ZeroDivisionError(f"Purchase price cannot be 0 for {pos.symbol} : {pos.purchase_price}")
     return list(map(lambda_rendement_pourcent, positions, prix_actuels))
 
-# lambda_rendement_pourcent = lambda pos_achat, pos_actuel: round (((pos_actuel.purchase_price - pos_achat.purchase_price) / pos_achat.purchase_price) * 100, 1)
 
+# lambda_rendement_pourcent = lambda pos_achat, pos_actuel: round (((pos_actuel.purchase_price - pos_achat.purchase_price) / pos_achat.purchase_price) * 100, 1)
 # lambda_gain_absolu = lambda pos_achat, pos_actuel: (pos_actuel.purchase_price - pos_achat.purchase_price) * pos_achat.quantity
+
 
 prix_actuels_data = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
 prix_actuels_positions = convertir_vers_positions(prix_actuels_data)
@@ -139,3 +140,4 @@ print("Gains actuels securisé:", gain_portfolio_secure)
 
 rendements_portfolio_secure = calculer_rendement_pourcent(portfolio_secure.get_positions(), prix_actuels_positions)
 print("Rendements securisé :", rendements_portfolio_secure)
+
