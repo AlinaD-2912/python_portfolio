@@ -24,8 +24,8 @@ def calculer_valeurs_positions(positions):
 valeurs_position = calculer_valeurs_positions(mon_portfolio.get_positions())
 print("\nValeurs d'achat :", valeurs_position)
 
-def calculer_gains_portfolio(positions, prix_actuels_dict):
-    return list(map(lambda_gain_absolu, positions, prix_actuels_dict))
+def calculer_gains_portfolio(positions, prix_actuels):
+    return list(map(lambda_gain_absolu, positions, prix_actuels))
 
 gain_portfolio = calculer_gains_portfolio(mon_portfolio.get_positions(), prix_actuels_positions)
 print("Gains actuels :", gain_portfolio)
@@ -36,3 +36,5 @@ def calculer_rendements_portfolio(positions, prix_actuels_dict):
 
 rendements_portfolio = calculer_rendements_portfolio(mon_portfolio.get_positions(), prix_actuels_positions)
 print("Rendements :", rendements_portfolio)
+
+

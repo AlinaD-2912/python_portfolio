@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from portfolio_calculs import *;
 from portfolio_structures import *;
 from typing import List
 from collections import namedtuple
@@ -14,6 +14,17 @@ positions_problematiques = [
     Position(25, -10, 2500.0, '2023-03-01'),      # Symbole numérique
     Position('TSLA', -10, 2500.0, '2027-03-01'),   # Date future
     Position('MSFT', 10, -2500.0, '2027-03-01'),  # Prix negative
+    Position('META', 10, 2500.0, '20270301')   # Date invalid format
+]
+
+positions_non_problematiques = [
+    Position('AAPL', 10, 15, '2023-01-15'),      # Prix d'achat = 0 !
+    Position('TSLA', 5, 100.0, '2023-02-01'),  # Symbole inexistant
+    Position('GOOGL', 10, 2500.0, '2023-03-01'), # Quantité négative !
+    Position('AMZN', 10, 2500.0, '2023-03-01'), # Quantité != type int
+    Position('NVDA', 10, 2500.0, '2023-03-01'),      # Symbole numérique
+    Position('TSLA', 10, 2500.0, '2027-03-01'),   # Date future
+    Position('MSFT', 10, 2500.0, '2027-03-01'),  # Prix negative
     Position('META', 10, 2500.0, '20270301')   # Date invalid format
 ]
 
@@ -91,7 +102,40 @@ def charger_portfolio_securise(fichier) -> Portfolio:
 
 print("Result chargement_portfolio_securise")
 p = charger_portfolio_securise("portfolio_sample.csv")
+
 print("\nPositions valides dans le fichier:")
 print(p.get_positions())
 
 
+
+#  position = portfolio.get_positions
+def calculer_gains_securise(positions, prix_actuels) :
+    for pos in positions:
+        if pos.quantity <= 0:
+            raise ErreurDonneesPortfolio(f"Quantity cannot be negative or 0 for {pos.symbol} : {pos.quantity}")
+    return list(map(lambda_gain_absolu, positions, prix_actuels))
+
+
+def calculer_rendement_pourcent(positions, prix_actuels):
+    for pos in positions:
+        if pos.purchase_price == 0:
+            raise ZeroDivisionError(f"Purchase price cannot be 0 for {pos.symbol} : {pos.purchase_price}")
+    return list(map(lambda_rendement_pourcent, positions, prix_actuels))
+
+# lambda_rendement_pourcent = lambda pos_achat, pos_actuel: round (((pos_actuel.purchase_price - pos_achat.purchase_price) / pos_achat.purchase_price) * 100, 1)
+
+# lambda_gain_absolu = lambda pos_achat, pos_actuel: (pos_actuel.purchase_price - pos_achat.purchase_price) * pos_achat.quantity
+
+prix_actuels_data = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
+prix_actuels_positions = convertir_vers_positions(prix_actuels_data)
+
+portfolio_secure = Portfolio("Test_calculs")
+
+for pos in positions_non_problematiques:
+    portfolio_secure.add_position(pos)
+
+gain_portfolio_secure = calculer_gains_securise(portfolio_secure.get_positions(), prix_actuels_positions)
+print("Gains actuels securisé:", gain_portfolio_secure)
+
+rendements_portfolio_secure = calculer_rendement_pourcent(portfolio_secure.get_positions(), prix_actuels_positions)
+print("Rendements securisé :", rendements_portfolio_secure)
