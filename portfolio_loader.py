@@ -10,13 +10,13 @@ print("\n\n ======================================  Step 1 =====================
 def create_connection(db_file):
     conn = None
     try:
-        conn = sqlite3.connect("portfolio.db")
+        conn = sqlite3.connect("portfolio_samples/portfolio.db")
         print("Connection successful")
     except sqlite3.Error as e:
         print(f"Error: {e}")
     return conn
 
-create_connection("portfolio.db")
+create_connection("portfolio_samples/portfolio.db")
 
 
 
@@ -35,7 +35,7 @@ def lire_portfolio_csv(nom_fichier):
     return portfolio
 
 print("\nLire portfolio csv ")
-data = lire_portfolio_csv("portfolio_sample.csv")
+data = lire_portfolio_csv("portfolio_samples/portfolio_sample.csv")
 print(data)
 
 
@@ -59,7 +59,7 @@ def lire_portfolio_json(nom_fichier):
 print("\n Lire portfolio json ")
 
 # csv_data = lire_portfolio_csv("portfolio_sample.csv")
-json_data = lire_portfolio_json("portfolio_sample.json")
+json_data = lire_portfolio_json("portfolio_samples/portfolio_sample.json")
 #
 # print(csv_data)
 print(json_data)
@@ -77,7 +77,7 @@ def lire_portfolio_xml(nom_fichier):
 
     return portfolio
 
-xml_data = lire_portfolio_xml("portfolio_sample.xml")
+xml_data = lire_portfolio_xml("portfolio_samples/portfolio_sample.xml")
 print(xml_data)
 
 
@@ -103,9 +103,9 @@ def afficher_portfolio(portfolio):
     else:
         print("\nUnknown format")
 
-afficher_portfolio("portfolio_sample.csv")
-afficher_portfolio("portfolio_sample.json")
-afficher_portfolio("portfolio_sample.xml")
+afficher_portfolio("portfolio_samples/portfolio_sample.csv")
+afficher_portfolio("portfolio_samples/portfolio_sample.json")
+afficher_portfolio("portfolio_samples/portfolio_sample.xml")
 
 
 def recherche_par_symbole(filename, symbole):
@@ -137,11 +137,11 @@ def recherche_par_symbole(filename, symbole):
     return results
 
 
-matches = recherche_par_symbole("portfolio_sample.csv", "AAPL")
+matches = recherche_par_symbole("portfolio_samples/portfolio_sample.csv", "AAPL")
 print(matches)
 
-print(recherche_par_symbole("portfolio_sample.json", "AAPL"))
-print(recherche_par_symbole("portfolio_sample.xml", "MSFT"))
+print(recherche_par_symbole("portfolio_samples/portfolio_sample.json", "AAPL"))
+print(recherche_par_symbole("portfolio_samples/portfolio_sample.xml", "MSFT"))
 
 
 def recherche_par_symbole_db(db_file, symbole):
@@ -154,7 +154,7 @@ def recherche_par_symbole_db(db_file, symbole):
     return rows
 
 # Now this works:
-rows = recherche_par_symbole_db("portfolio.db", "AAPL")
+rows = recherche_par_symbole_db("portfolio_samples/portfolio.db", "AAPL")
 print(rows)
 
 

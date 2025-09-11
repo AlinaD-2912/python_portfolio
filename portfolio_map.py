@@ -1,12 +1,12 @@
-from portfolio_calculs import *
+from portfolio_calculs import *;
 from portfolio_structures import Portfolio, convertir_vers_positions
 from portfolio_loader import lire_portfolio_csv
 from portfolio_loader import *;
 
 print("\n\n ======================================  Step 4 ==========================================")
 
-portfolio_data = lire_portfolio_csv("portfolio_sample.csv")
-prix_actuels_data = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
+portfolio_data = lire_portfolio_csv("portfolio_samples/portfolio_sample.csv")
+prix_actuels_data = lire_portfolio_csv("portfolio_samples/portfolio_actual_prices_sample.csv")
 
 portfolio_positions = convertir_vers_positions(portfolio_data)
 prix_actuels_positions = convertir_vers_positions(prix_actuels_data)

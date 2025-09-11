@@ -127,7 +127,7 @@ def calculer_rendement_pourcent(positions, prix_actuels):
 # lambda_gain_absolu = lambda pos_achat, pos_actuel: (pos_actuel.purchase_price - pos_achat.purchase_price) * pos_achat.quantity
 
 
-prix_actuels_data = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
+prix_actuels_data = lire_portfolio_csv("portfolio_samples/portfolio_actual_prices_sample.csv")
 prix_actuels_positions = convertir_vers_positions(prix_actuels_data)
 
 portfolio_secure = Portfolio("Test_calculs")

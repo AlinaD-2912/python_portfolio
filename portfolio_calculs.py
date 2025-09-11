@@ -2,8 +2,8 @@ from portfolio_loader import lire_portfolio_csv
 from portfolio_structures import *;
 from portfolio_loader import *;
 
-portfolio_data = lire_portfolio_csv("portfolio_sample.csv")
-actual_prices_data = lire_portfolio_csv("portfolio_actual_prices_sample.csv")
+portfolio_data = lire_portfolio_csv("portfolio_samples/portfolio_sample.csv")
+actual_prices_data = lire_portfolio_csv("portfolio_samples/portfolio_actual_prices_sample.csv")
 
 portfolio_positions = convertir_vers_positions(portfolio_data)
 actual_prices_positions = convertir_vers_positions(actual_prices_data)

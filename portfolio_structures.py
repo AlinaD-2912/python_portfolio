@@ -54,8 +54,8 @@ def afficher_positions(positions: List[Position]):
 
 
 # Load data and convert to positions
-portfolio_dicts = lire_portfolio_csv("portfolio_sample.csv")
-portfolio_dicts2 = lire_portfolio_json("portfolio_sample.json")
+portfolio_dicts = lire_portfolio_csv("portfolio_samples/portfolio_sample.csv")
+portfolio_dicts2 = lire_portfolio_json("portfolio_samples/portfolio_sample.json")
 
 positions_csv = convertir_vers_positions(portfolio_dicts)
 positions_json = convertir_vers_positions(portfolio_dicts2)

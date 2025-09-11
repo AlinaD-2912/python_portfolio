@@ -21,7 +21,7 @@ class Portfolio:
 
 
 
-portfolio_data = lire_portfolio_csv("portfolio_sample.csv")
+portfolio_data = lire_portfolio_csv("portfolio_samples/portfolio_sample.csv")
 positions_csv = convertir_vers_positions(portfolio_data)
 
 my_portfolio = Portfolio()
